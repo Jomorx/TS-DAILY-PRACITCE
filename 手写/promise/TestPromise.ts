@@ -1,14 +1,23 @@
-const promise = new Promise((resolve, reject) => {
-  // resolve(1)
-  throw new Error("123");
+const promise1 = new Promise((resolve: Function) => {
+  setTimeout(() => {
+    resolve(1111);
+  }, 1000);
 });
-promise.then((res) => {
-  console.log('rrrrrrrrrr:',res);
-})
-.then(res=>{
-    console.log(res);
-},err=>{
-    console.log("errr:",err);
-    
-})
 
+const promise2 = new Promise((resolve: Function) => {
+  setTimeout(() => {
+    resolve(2222);
+  }, 2000);
+});
+
+const promise3 = new Promise((resolve: Function, reject: Function) => {
+  setTimeout(() => {
+    reject(3333);
+  }, 3000);
+});
+
+Promise.any([promise1, promise2, promise3]).then((res: any) => {
+  console.log(res);
+}).catch(err=>console.log(err)
+)
+export {}

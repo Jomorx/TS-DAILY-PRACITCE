@@ -99,16 +99,61 @@ class MoPromise {
   }
 
   static all(promises: MoPromise[]) {
-    const values: any[] = [];
     return new MoPromise((resolve: Function, reject: Function) => {
+      const values: any[] = [];
       promises.forEach((promise: MoPromise) => {
-        promise.then((res: any) => {
-          values.push(res);
-          if (values.length === promises.length) {
-            resolve(values);
+        promise.then(
+          (res: any) => {
+            values.push(res);
+            if (values.length === promises.length) {
+              resolve(values);
+            }
+          },
+          (err: any) => {
+            reject(err);
           }
-        });
+        );
       });
+    });
+  }
+  static allSettled(promises: MoPromise[]) {
+    return new MoPromise((resolve: Function, reject: Function) => {
+      const value: object[] = [];
+      promises.forEach((premise: MoPromise) => {
+        premise.then(
+          (res: any) => {
+            value.push({ status: PROMISE_STATUS_FULFILLED, value: res });
+            if (promises.length === value.length) {
+              resolve(value);
+            }
+          },
+          (err: any) => {
+            value.push({ status: PROMISE_STATUS_REJECTED, value: err });
+            if (promises.length === value.length) {
+              resolve(value);
+            }
+          }
+        );
+      });
+    });
+  }
+  static race(promises: MoPromise[]) {
+    return new MoPromise((resolve: Function, reject: Function) => {
+      promises.forEach((promise) => promise.then(resolve, reject));
+    });
+  }
+
+  static any(promises: MoPromise[]) {
+    return new MoPromise((resolve: Function, reject: Function) => {
+      const reasons: any = [];
+      promises.forEach((promise) =>
+        promise.then(resolve, (err: any) => {
+          reasons.push(err);
+          if (reasons.length === promises.length) {
+            reject(new AggregateError(reasons));
+          }
+        })
+      );
     });
   }
 }
@@ -127,25 +172,30 @@ const executeFunctionWithCatchError = (
   }
 };
 
-//test
-const moPromise1 = new MoPromise((resolve: any) => {
+//
+const moPromise1 = new MoPromise((resolve: Function) => {
   setTimeout(() => {
     resolve(1111);
-  }, 1000);
+  }, 3000);
 });
 
-const moPromise2 = new MoPromise((resolve: any) => {
+const moPromise2 = new MoPromise((resolve: Function) => {
   setTimeout(() => {
     resolve(2222);
   }, 2000);
 });
 
-const moPromise3 = new MoPromise((resolve: any) => {
+const moPromise3 = new MoPromise((resolve: Function, reject: Function) => {
   setTimeout(() => {
-    resolve(3333);
-  }, 3000);
+    reject(3333);
+  }, 1000);
 });
 
-MoPromise.all([moPromise1, moPromise2, moPromise3]).then((res: any) => {
-  console.log(res);
-});
+MoPromise.any([moPromise1, moPromise2, moPromise3]).then(
+  (res: any) => {
+    console.log("res", res);
+  },
+  (err: any) => {
+    console.log("err", err);
+  }
+);
