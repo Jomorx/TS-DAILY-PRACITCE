@@ -2,7 +2,7 @@ const PROMISE_STATUS_PENDING = "pending";
 const PROMISE_STATUS_FULFILLED = "fulfilled";
 const PROMISE_STATUS_REJECTED = "rejected";
 
-class ChPromise {
+class MoPromise {
   //Promise状态信息
   private status: string;
   //resolve的value
@@ -53,7 +53,7 @@ class ChPromise {
       throw err;
     };
     onfulfilled ||= (res: any) => res;
-    return new ChPromise((resolve: Function, reject: Function) => {
+    return new MoPromise((resolve: Function, reject: Function) => {
       if (this.status === PROMISE_STATUS_FULFILLED && onfulfilled) {
         executeFunctionWithCatchError(onfulfilled, this.value, resolve, reject);
       }
@@ -90,18 +90,18 @@ class ChPromise {
   }
 
   static resolve(value: any) {
-    return new ChPromise((resolve: Function) => resolve(value));
+    return new MoPromise((resolve: Function) => resolve(value));
   }
   static reject(reason: any) {
-    return new ChPromise((_: Function, reject: Function) => {
+    return new MoPromise((_: Function, reject: Function) => {
       reject(reason);
     });
   }
 
-  static all(promises: ChPromise[]) {
-    return new ChPromise((resolve: Function, reject: Function) => {
+  static all(promises: MoPromise[]) {
+    return new MoPromise((resolve: Function, reject: Function) => {
       const values: any[] = [];
-      promises.forEach((promise: ChPromise) => {
+      promises.forEach((promise: MoPromise) => {
         promise.then(
           (res: any) => {
             values.push(res);
@@ -116,10 +116,10 @@ class ChPromise {
       });
     });
   }
-  static allSettled(promises: ChPromise[]) {
-    return new ChPromise((resolve: Function, reject: Function) => {
+  static allSettled(promises: MoPromise[]) {
+    return new MoPromise((resolve: Function, reject: Function) => {
       const value: object[] = [];
-      promises.forEach((premise: ChPromise) => {
+      promises.forEach((premise: MoPromise) => {
         premise.then(
           (res: any) => {
             value.push({ status: PROMISE_STATUS_FULFILLED, value: res });
@@ -137,14 +137,14 @@ class ChPromise {
       });
     });
   }
-  static race(promises: ChPromise[]) {
-    return new ChPromise((resolve: Function, reject: Function) => {
+  static race(promises: MoPromise[]) {
+    return new MoPromise((resolve: Function, reject: Function) => {
       promises.forEach((promise) => promise.then(resolve, reject));
     });
   }
 
-  static any(promises: ChPromise[]) {
-    return new ChPromise((resolve: Function, reject: Function) => {
+  static any(promises: MoPromise[]) {
+    return new MoPromise((resolve: Function, reject: Function) => {
       const reasons: any = [];
       promises.forEach((promise) =>
         promise.then(resolve, (err: any) => {
@@ -173,25 +173,25 @@ const executeFunctionWithCatchError = (
 };
 
 //
-const moPromise1 = new ChPromise((resolve: Function) => {
+const moPromise1 = new MoPromise((resolve: Function) => {
   setTimeout(() => {
     resolve(1111);
   }, 3000);
 });
 
-const moPromise2 = new ChPromise((resolve: Function) => {
+const moPromise2 = new MoPromise((resolve: Function) => {
   setTimeout(() => {
     resolve(2222);
   }, 2000);
 });
 
-const moPromise3 = new ChPromise((resolve: Function, reject: Function) => {
+const moPromise3 = new MoPromise((resolve: Function, reject: Function) => {
   setTimeout(() => {
     reject(3333);
   }, 1000);
 });
 
-ChPromise.any([moPromise1, moPromise2, moPromise3]).then(
+MoPromise.any([moPromise1, moPromise2, moPromise3]).then(
   (res: any) => {
     console.log("res", res);
   },
