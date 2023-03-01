@@ -19,4 +19,3 @@ type error = TupleToObject<[[1, 2], {}]>
 type TupleToObject<T extends readonly (number|string|symbol)[]> = {
   [P in T[number]]:P
 }
-type res =TupleToObject<typeof tuple>
