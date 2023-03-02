@@ -9,9 +9,11 @@
   <body>
     <script src="./MoDebounce.js"></script>
 
-    <input type="text" id="input" />
+    <input type="text" id="input" /> <button id="cancel">取消</button>
     <script>
       const input = document.querySelector("#input")
+      const cancel = document.querySelector("#cancel")
+
       let i = 0
       function handleInput(...num){
           console.log(i++);
@@ -19,7 +21,9 @@
           console.log(num);
           console.log(this.a);
       }
-      input.oninput = MyDebounce(handleInput,2000,true,{a:1})
+      const deHandleInput = MyDebounce(handleInput,2000,true,{a:1})
+      input.oninput = deHandleInput
+      cancel.onclick = deHandleInput.cancel
     </script>
   </body>
 </html>
