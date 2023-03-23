@@ -67,3 +67,53 @@ visibility:hidden不会让元素从渲染树中消失，渲染的元素还会占
 1.包含浮动元素（清除浮动）
 
 2.导致外边距折叠
+
+## 8.怪异盒模型，标准盒模型
+
+怪异: content+padding+border
+
+标准: content+padding+border+margin
+
+## 9.flex 布局
+
+flex-shrink 等比例缩小 flex-grow 等比例放大 flex-basis 盒子宽度，如果设置了width，则以flex-basis
+
+flex1：实际上是flex-grow、flex-shrink和flex-basis三个属性的缩写。
+
+flex:1 ==> flex:1 1 auto 
+
+## 10.如何实现水平垂直居中
+
+1. flex: flex + just:center + align center
+
+2. 定位: 
+
+   ```html
+   .box {
+     postion: absolute;
+     top: 50%;
+     bottom: 50%;
+     width: 50px;
+     height: 50px;
+     transform: translate(-50%, -50%);
+   }
+   <body>
+   <div class="box"><div>
+   </body>
+   ```
+
+3. flex+margin
+
+	```css
+	.box {
+	  display: flex;
+	}
+	
+	.item {
+	  margin: auto;
+	}
+	```
+
+## 11.em和rem的区别
+
+​	em使用的是当前块的font-size，rem使用html根的font-size
