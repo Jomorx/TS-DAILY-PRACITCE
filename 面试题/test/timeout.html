@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button onclick="stopTimer()">暂停</button>
+    <button onclick="resumeTimer()">resumeTimer</button>
+
+    <script>
+      let timerId;
+      let startTime;
+      let elapsedTime = 0;
+      let duration = 5000; // 倒数5秒钟
+
+      function startTimer() {
+        startTime = Date.now();
+        console.log("计时器开始计时");
+        timerId = setTimeout(() => {
+          console.log("计时器已触发");
+        }, duration - elapsedTime);
+      }
+
+      function stopTimer() {
+        clearTimeout(timerId);
+        elapsedTime = Date.now() - startTime;
+        console.log("暂停",elapsedTime);
+      }
+
+      function resumeTimer() {
+        startTimer();
+      }
+
+      // 第一次启动计时器
+      startTimer();
+
+      // 停止计时器
+      // stopTimer();
+
+      // 再次启动计时器
+      // resumeTimer();
+    </script>
+  </body>
+</html>

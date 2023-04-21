@@ -1,31 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <script>
-        Array.prototype.myReduce = function(fn,init,_this){
-            let array = this
-            let res = init
-            for(let i = 0;i<array.length;i++){
-                res = fn.call(_this,res,array[i])
-            }
-            return res
+      Array.prototype.myReduce = function (fn, ...args) {
+        let [start, prev] = args.length === 0 ? [1, this[0]] : [0, args[0]];
+        for (let i = start; i < this.length; i++) {
+          prev = fn(prev, this[i], i, this);
         }
+        return prev;
+      };
 
-        Array.prototype.myFlat = function (){
-            const arr = this 
-            return arr.myReduce((total,next)=>{
-                return Array.isArray(next) ? total.concat(next.myFlat()):total.concat(next)
-            },[])
-        }
-        const test = [[[1],2,[3,[[[[4]]]]]]]
-        console.log(test.myFlat());
-        
+      Array.prototype.myFlat = function (count) {
+        if(!count) return this
+        const arr = this;
+        return arr.myReduce((total, next) => {
+          return Array.isArray(next)
+            ? total.concat(next.myFlat(count-1))
+            : total.concat(next);
+        }, []);
+      };
+      const test = [[[1], 2, [3, [[[[4]]]]]]];
+      console.log(test.myFlat(3));
     </script>
-</body>
+  </body>
 </html>

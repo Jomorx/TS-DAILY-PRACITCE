@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./细粒度更新.js"></script>
+    <script>
+      // 示例1
+      const [count, setCount] = useState(0);
+      // effect1
+      useEffect(() => {
+        // 1.打印 “count is: 0”
+        console.log("count is:", count());
+      });
+      // effect2
+      useEffect(() => {
+        // 2.打印 “没我什么事儿”
+        console.log("没我什么事儿");
+      });
+      setCount(2); // 3.打印 “count is: 2”
+    </script>
+    <!-- <script>
+        // 示例2
+        const [name1, setName1] = useState("LiLei");
+        const [name2, setName2] = useState("HanMeiMei");
+        const [showAll, triggerShowAll] = useState(true);
+  
+        const whoIsHere = useMemo(() => {
+          if (!showAll()) {
+            return name1();
+          }
+          return `${name1()} 和 ${name2()}`;
+        });
+  
+        // 打印1: 谁在那儿！LiLei 和 HanMeiMei
+        useEffect(() => console.log("谁在那儿！", whoIsHere()));
+  
+        // 打印2：谁在那儿！XiaoMing 和 HanMeiMei
+        setName1("XiaoMing");
+  
+        // 打印3：谁在那儿！XiaoMing
+        triggerShowAll(false);
+  
+        // 不打印信息
+        setName2("XiaoHong");
+      </script> -->
+  </body>
+</html>

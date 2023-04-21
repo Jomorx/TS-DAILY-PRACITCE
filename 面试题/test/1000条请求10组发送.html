@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 定义请求的url列表
+      const urls = [];
+      for (let i = 1; i <= 1000; i++) {
+        urls.push(`https://api.thecatapi.com/v1/images/search?limit=1`);
+      }
+
+      // 定义请求的批次大小
+      const batchSize = 10;
+
+      // 定义发送批次请求的函数
+      async function sendBatch(batch) {
+        const responses = await Promise.all(batch.map((url) => fetch(url)));
+        const results = await Promise.all(
+          responses.map((response) => response.json())
+        );
+        return results;
+      }
+
+      // 定义发送所有请求的函数
+      async function sendAll(urls) {
+        const results = [];
+        for (let i = 0; i < urls.length; i += batchSize) {
+          const batch = urls.slice(i, i + batchSize);
+          const batchResults = await sendBatch(batch);
+          results.push(...batchResults);
+        }
+        return results;
+      }
+
+      // 发送所有请求，并输出最终结果
+      sendAll(urls)
+        .then((results) => console.log(results))
+        .catch((error) => console.error(error));
+    </script>
+  </body>
+</html>

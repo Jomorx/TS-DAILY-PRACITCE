@@ -42,17 +42,13 @@ visibility:hidden不会让元素从渲染树中消失，渲染的元素还会占
 （3）修改常规文档流中元素的**display 通常会造成文档的重排**，但是**修改visibility属性只会造成本元素的重绘**；
 （4）如果使用读屏器，设置为display:none的内容不会被读取，设置为visibility:hidden的内容会被读取。
 
-## 5.如何实现一个元素的水平垂直居中
-
-(1) flex (2) absolute+transform
-
-## 6.css 如何实现左侧固定 300px，右侧自适应的布局
+## 5.css 如何实现左侧固定 300px，右侧自适应的布局
 
 (1) 左侧 300px；右侧 flex: 1; 采用 flex 的固比模型
 
 (2) 使用 calc 方法 .left{width:300px;} .right{width: calc(100% - 300px)}
 
-## 7.[怎么触发BFC，BFC有什么用](https://q.shanyue.tech/fe/css/572.html#%E4%BD%BF%E7%94%A8-flex)
+## 6.[怎么触发BFC，BFC有什么用](https://q.shanyue.tech/fe/css/572.html#%E4%BD%BF%E7%94%A8-flex)
 
 触发
 
@@ -68,13 +64,13 @@ visibility:hidden不会让元素从渲染树中消失，渲染的元素还会占
 
 2.导致外边距折叠
 
-## 8.怪异盒模型，标准盒模型
+## 7.怪异盒模型，标准盒模型
 
 怪异: content+padding+border
 
 标准: content+padding+border+margin
 
-## 9.flex 布局
+## 8.flex 布局
 
 flex-shrink 等比例缩小 flex-grow 等比例放大 flex-basis 盒子宽度，如果设置了width，则以flex-basis
 
@@ -82,7 +78,7 @@ flex1：实际上是flex-grow、flex-shrink和flex-basis三个属性的缩写。
 
 flex:1 ==> flex:1 1 auto 
 
-## 10.如何实现水平垂直居中
+## 9.如何实现水平垂直居中
 
 1. flex: flex + just:center + align center
 
@@ -114,6 +110,6 @@ flex:1 ==> flex:1 1 auto
 	}
 	```
 
-## 11.em和rem的区别
+## 10.em和rem的区别
 
 ​	em使用的是当前块的font-size，rem使用html根的font-size

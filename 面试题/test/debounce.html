@@ -17,10 +17,10 @@
         document.querySelector("#input").addEventListener("input",debounce(handleInput,2000))
         function debounce(fn,delay){
             let timer = null
-            return function (){
+            return function (...args){
                 if(timer) clearTimeout(timer) 
                 timer = setTimeout(() => {
-                    fn()
+                    fn.call(this,...args)
                 }, delay);
             }
         }
