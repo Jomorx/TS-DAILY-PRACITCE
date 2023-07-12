@@ -8,14 +8,13 @@
 </head>
 <body>
     <script>
-        Array.prototype.myflat = function (){
-            const arr = this 
-            return arr.reduce((total,next)=>{
-                return Array.isArray(next) ? total.concat(next.myflat()):total.concat(next)
-            },[])
+        Array.prototype.myFlat = function (n){
+            if(!n || !Array.isArray(this)) return this 
+            const arr = this
+            return this.reduce((total,next)=>Array.isArray(next)?total.concat(next.myFlat(n-1)):total.concat(next),[])
         }
-        const test = [[[1],2,[3,[[[[4]]]]]]]
-        console.log(test.myflat());
+        const arr = [1,[2,3,[4,[[[5]]]]]]
+        console.log(arr.myFlat(Infinity));
     </script>
 </body>
 </html>
