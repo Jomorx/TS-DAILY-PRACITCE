@@ -36,13 +36,12 @@ every 需要全部符合
 
 
 
-
 1. nexttick 原理
 2. 强缓存协商缓存
 
 ## 跨标签通信
 1. onstorage
-2. new BoardcastChannel('xxx')
+2. new BroadcastChannel('xxx')
 
 ## referer origin host
 1、Host
