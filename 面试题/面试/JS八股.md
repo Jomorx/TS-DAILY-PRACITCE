@@ -39,3 +39,18 @@ every 需要全部符合
 
 1. nexttick 原理
 2. 强缓存协商缓存
+
+## 跨标签通信
+1. onstorage
+2. new BoardcastChannel('xxx')
+
+## referer origin host
+1、Host
+表示当前请求要被发送的目的地，说白了就是当前请求目标资源的host，仅包括域名和端口号，如test.haoji.me。在任何类型请求中，request都会包含此header信息。
+2、Origin
+表示当前请求资源所在页面的协议和域名，如http://blog.haoji.me，特别注意：
+这个参数一般只存在于CORS跨域请求中，普通请求没有这个header！
+3、Referer
+表示当前请求资源所在页面的完整路径：协议+域名+查询参数（注意不包含锚点信息），如http://blog.haoji.me/http-host-origin-referer.html?a=1&b=2，所有类型的请求都包含此header。
+
+![Alt text](image.png)

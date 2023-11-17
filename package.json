@@ -1,0 +1,26 @@
+{
+  "name": "ts-daily-practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jiumolixin/TS-DAILY-PRACITCE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jiumolixin/TS-DAILY-PRACITCE/issues"
+  },
+  "homepage": "https://github.com/jiumolixin/TS-DAILY-PRACITCE#readme",
+  "dependencies": {
+    "@types/node": "^20.4.2"
+  }
+}

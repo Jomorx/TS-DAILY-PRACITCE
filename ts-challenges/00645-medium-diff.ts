@@ -31,7 +31,7 @@ type res =keyof ({
   name: string;
   age: string;
   gender: number;
-} & {
+} | {
   name: string;
   age: string;
 });

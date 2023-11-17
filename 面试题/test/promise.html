@@ -1,60 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-  </head>
-  <body>
+</head>
+
+<body>
     <script>
-      function all(promiseList) {
-        return new Promise((resolve, reject) => {
-          const resArr = [];
-          promiseList.forEach((promise) => {
-            promise.then(
-              (res) => {
-                resArr.push(res);
-                if (resArr.length === promiseList.length) {
-                  resolve(resArr);
+        const sendRequest = (id) => () => fetch(`https://jsonplaceholder.typicode.com/posts/${id}`).then(res => res.json())
+        const limitRequest = async (arr, limit) => {
+            const requestPool = new Set()
+            const answers = []
+
+            for (const request of arr) {
+                if (requestPool.size >= limit) {
+                    await Promise.race(requestPool).catch(err => err)
                 }
-              },
-              (err) => {
-                reject(err);
-              }
-            );
-          });
-        });
-      }
-      const p1 = new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve(11111);
-        }, 1000);
-      });
+                const promise = request()
+                const cb = (v) => {
+                    requestPool.delete(promise)
+                    console.log(v);
+                }
+                promise.then(cb, cb)
+                requestPool.add(promise)
+                answers.push(promise)
+            }
+            Promise.allSettled(answers).then(console.log)
+        }
 
-      const p2 = new Promise((resolve, reject) => {
-        setTimeout(() => {
-        //   reject(22222);
-        resolve(22222);
 
-        }, 2000);
-      });
-
-      const p3 = new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve(33333);
-        }, 3000);
-      });
-
-      // 需求: 所有的Promise都变成fulfilled时, 再拿到结果
-      // 意外: 在拿到所有结果之前, 有一个promise变成了rejected, 那么整个promise是rejected
-      all([p2, p1, p3])
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log("err:", err);
-        });
+        limitRequest(Array.from({ length: 100 }, (_, idx) => sendRequest(idx)), 10)
     </script>
-  </body>
+</body>
+
 </html>

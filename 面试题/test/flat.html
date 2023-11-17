@@ -9,9 +9,7 @@
 <body>
     <script>
         Array.prototype.myFlat = function (n){
-            if(!n || !Array.isArray(this)) return this 
-            const arr = this
-            return this.reduce((total,next)=>Array.isArray(next)?total.concat(next.myFlat(n-1)):total.concat(next),[])
+            return this.reduce((total,next)=>Array.isArray(next)?total.concat(next.myFlat()):total.concat(next),[])
         }
         const arr = [1,[2,3,[4,[[[5]]]]]]
         console.log(arr.myFlat(Infinity));

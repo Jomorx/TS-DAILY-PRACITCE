@@ -76,7 +76,7 @@ flex-shrink 等比例缩小 flex-grow 等比例放大 flex-basis 盒子宽度，
 
 flex1：实际上是flex-grow、flex-shrink和flex-basis三个属性的缩写。
 
-flex:1 ==> flex:1 1 auto 
+flex:1 ==> flex:1 1 0% 
 
 ## 9.如何实现水平垂直居中
 

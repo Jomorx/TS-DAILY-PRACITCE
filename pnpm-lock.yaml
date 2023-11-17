@@ -1,0 +1,12 @@
+lockfileVersion: '6.0'
+
+dependencies:
+  '@types/node':
+    specifier: ^20.4.2
+    version: 20.4.2
+
+packages:
+
+  /@types/node@20.4.2:
+    resolution: {integrity: sha512-Dd0BYtWgnWJKwO1jkmTrzofjK2QXXcai0dmtzvIBhcA+RsG5h8R3xlyta0kGOZRNfL9GuRtb1knmPEhQrePCEw==}
+    dev: false

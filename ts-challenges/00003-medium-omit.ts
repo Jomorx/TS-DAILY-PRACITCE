@@ -26,7 +26,7 @@ interface Expected2 {
 
 // ============= Your Code Here =============
 type MyOmit<T, K extends keyof T> = {
-  [P in MyExclude<keyof T, K>]: T[P];
+  [P in keyof ]: T[P];
 };
 
 type MyExclude<T,K extends T> = T extends K ? never : T 

@@ -22,3 +22,4 @@ console.log(get(obj, 'a.b[0].c[1].e[2][1].e', 0));
 console.log(get(obj, 'a.b[0].c', 0));
 console.log(get(obj, 'a.b.c', 0));
 console.log(get(obj, 'a', 0));
+export {}

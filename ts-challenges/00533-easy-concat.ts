@@ -10,4 +10,13 @@ type cases = [
 
 
 // ============= Your Code Here =============
-type Concat<T extends any[], U extends any[]> = [...T,...U]
+type Concat<T extends any[], U extends any[]> = [...T, ...U]
+
+type test = ['a', 'b', ['c', ['d']]]
+
+type Flat<T extends any[]> = 
+T extends [infer F, ...infer Rest] ? 
+F extends any[] ? Flat<[...F,]> : Flat<Rest,[...R,F]> : 
+R
+
+type res = Flat<test>[number]
